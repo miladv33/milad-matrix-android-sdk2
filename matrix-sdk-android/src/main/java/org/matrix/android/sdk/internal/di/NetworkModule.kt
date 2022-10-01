@@ -42,7 +42,7 @@ internal object NetworkModule {
     @Provides
     @JvmStatic
     fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        val logger = FormattedJsonHttpLogger(BuildConfig.OKHTTP_LOGGING_LEVEL)
+        val logger = FormattedJsonHttpLogger()
         val interceptor = HttpLoggingInterceptor(logger)
         interceptor.level = BuildConfig.OKHTTP_LOGGING_LEVEL
         return interceptor
@@ -65,42 +65,42 @@ internal object NetworkModule {
     @JvmStatic
     @Unauthenticated
     fun providesOkHttpClient(
-            matrixConfiguration: MatrixConfiguration,
-            stethoInterceptor: StethoInterceptor,
-            timeoutInterceptor: TimeOutInterceptor,
-            userAgentInterceptor: UserAgentInterceptor,
-            httpLoggingInterceptor: HttpLoggingInterceptor,
-            curlLoggingInterceptor: CurlLoggingInterceptor,
-            apiInterceptor: ApiInterceptor
+        matrixConfiguration: MatrixConfiguration,
+        stethoInterceptor: StethoInterceptor,
+        timeoutInterceptor: TimeOutInterceptor,
+        userAgentInterceptor: UserAgentInterceptor,
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        curlLoggingInterceptor: CurlLoggingInterceptor,
+        apiInterceptor: ApiInterceptor
     ): OkHttpClient {
-        val spec = ConnectionSpec.Builder(matrixConfiguration.connectionSpec).build()
+//        val spec = ConnectionSpec.Builder(matrixConfiguration.connectionSpec).build()
         val dispatcher = Dispatcher().apply {
             maxRequestsPerHost = 20
         }
         return OkHttpClient.Builder()
-                // workaround for #4669
-                .protocols(listOf(Protocol.HTTP_1_1))
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .apply {
-                    if (BuildConfig.DEBUG) {
-                        addNetworkInterceptor(stethoInterceptor)
-                    }
+            // workaround for #4669
+            .protocols(listOf(Protocol.HTTP_1_1))
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    addNetworkInterceptor(stethoInterceptor)
                 }
-                .addInterceptor(timeoutInterceptor)
-                .addInterceptor(userAgentInterceptor)
-                .addInterceptor(httpLoggingInterceptor)
-                .addInterceptor(apiInterceptor)
-                .apply {
-                    if (BuildConfig.LOG_PRIVATE_DATA) {
-                        addInterceptor(curlLoggingInterceptor)
-                    }
+            }
+            .addInterceptor(timeoutInterceptor)
+            .addInterceptor(userAgentInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(apiInterceptor)
+            .apply {
+                if (BuildConfig.LOG_PRIVATE_DATA) {
+                    addInterceptor(curlLoggingInterceptor)
                 }
-                .dispatcher(dispatcher)
-                .connectionSpecs(Collections.singletonList(spec))
-                .applyMatrixConfiguration(matrixConfiguration)
-                .build()
+            }
+            .dispatcher(dispatcher)
+//                .connectionSpecs(Collections.singletonList(spec))
+            .applyMatrixConfiguration(matrixConfiguration)
+            .build()
     }
 
     @Provides

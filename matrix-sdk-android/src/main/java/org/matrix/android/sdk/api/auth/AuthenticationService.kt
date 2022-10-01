@@ -17,6 +17,7 @@
 package org.matrix.android.sdk.api.auth
 
 import org.matrix.android.sdk.api.auth.data.Credentials
+import org.matrix.android.sdk.api.auth.data.DiscoveryInformation
 import org.matrix.android.sdk.api.auth.data.HomeServerConnectionConfig
 import org.matrix.android.sdk.api.auth.data.LoginFlowResult
 import org.matrix.android.sdk.api.auth.login.LoginWizard
@@ -96,16 +97,16 @@ interface AuthenticationService {
      * Create a session after a SSO successful login.
      */
     suspend fun createSessionFromSso(
-            homeServerConnectionConfig: HomeServerConnectionConfig,
-            credentials: Credentials
+        homeServerConnectionConfig: HomeServerConnectionConfig,
+        credentials: Credentials
     ): Session
 
     /**
      * Perform a wellknown request, using the domain from the matrixId.
      */
     suspend fun getWellKnownData(
-            matrixId: String,
-            homeServerConnectionConfig: HomeServerConnectionConfig?
+        matrixId: String,
+        homeServerConnectionConfig: HomeServerConnectionConfig?
     ): WellknownResult
 
     /**
@@ -118,10 +119,21 @@ interface AuthenticationService {
      * @param deviceId the device id, optional. If not provided or null, the server will generate one.
      */
     suspend fun directAuthentication(
-            homeServerConnectionConfig: HomeServerConnectionConfig,
-            matrixId: String,
-            password: String,
-            initialDeviceName: String,
-            deviceId: String? = null
+        homeServerConnectionConfig: HomeServerConnectionConfig,
+        matrixId: String,
+        password: String,
+        initialDeviceName: String,
+        deviceId: String? = null
     ): Session
+
+    suspend fun directTokenAuthentication(
+        homeServerConnectionConfig: HomeServerConnectionConfig,
+        userId: String,
+        accessToken: String,
+        refreshToken: String?,
+        homeServer: String?,
+        deviceId: String?,
+        discoveryInformation: DiscoveryInformation?
+    ): Session
+
 }

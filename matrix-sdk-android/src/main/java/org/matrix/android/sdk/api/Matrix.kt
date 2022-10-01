@@ -77,10 +77,13 @@ class Matrix(context: Context, matrixConfiguration: MatrixConfiguration) {
         DaggerMatrixComponent.factory().create(appContext, matrixConfiguration).inject(this)
         if (appContext !is Configuration.Provider) {
             val configuration = Configuration.Builder()
-                    .setExecutor(Executors.newCachedThreadPool())
-                    .setWorkerFactory(matrixWorkerFactory)
-                    .build()
-            WorkManager.initialize(appContext, configuration)
+                .setExecutor(Executors.newCachedThreadPool())
+                .setWorkerFactory(matrixWorkerFactory)
+                .build()
+            try {
+                WorkManager.initialize(appContext, configuration)
+            } catch (e: Exception) {
+            }
         }
         uiHandler.post {
             ProcessLifecycleOwner.get().lifecycle.addObserver(backgroundDetectionObserver)

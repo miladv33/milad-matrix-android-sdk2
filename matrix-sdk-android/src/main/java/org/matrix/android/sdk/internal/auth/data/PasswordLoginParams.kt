@@ -27,11 +27,11 @@ import org.matrix.android.sdk.api.auth.data.LoginFlowTypes
  */
 @JsonClass(generateAdapter = true)
 internal data class PasswordLoginParams(
-        @Json(name = "identifier") val identifier: Map<String, String>,
-        @Json(name = "password") val password: String,
-        @Json(name = "type") override val type: String,
-        @Json(name = "initial_device_display_name") val deviceDisplayName: String?,
-        @Json(name = "device_id") val deviceId: String?
+    @Json(name = "identifier") val identifier: Map<String, String>,
+    @Json(name = "password") val password: String,
+    @Json(name = "type") override val type: String,
+    @Json(name = "initial_device_display_name") val deviceDisplayName: String?,
+    @Json(name = "device_id") val deviceId: String?
 ) : LoginParams {
 
     companion object {
@@ -49,60 +49,67 @@ internal data class PasswordLoginParams(
         private const val IDENTIFIER_KEY_PHONE = "phone"
 
         fun userIdentifier(
-                user: String,
-                password: String,
-                deviceDisplayName: String?,
-                deviceId: String?
+            user: String,
+            password: String,
+            deviceDisplayName: String?,
+            deviceId: String?
         ): PasswordLoginParams {
             return PasswordLoginParams(
-                    identifier = mapOf(
-                            IDENTIFIER_KEY_TYPE to IDENTIFIER_KEY_TYPE_USER,
-                            IDENTIFIER_KEY_USER to user
-                    ),
-                    password = password,
-                    type = LoginFlowTypes.PASSWORD,
-                    deviceDisplayName = deviceDisplayName,
-                    deviceId = deviceId
+                identifier = mapOf(
+                    IDENTIFIER_KEY_TYPE to IDENTIFIER_KEY_TYPE_USER,
+                    IDENTIFIER_KEY_USER to user
+                ),
+                password = password,
+                type = LoginFlowTypes.PASSWORD,
+                deviceDisplayName = deviceDisplayName,
+                deviceId = deviceId
             )
         }
-
+        fun tokenIdentifier(
+            token: String
+        ): TokenLoginParams {
+            return TokenLoginParams(
+                token = token,
+                type = LoginFlowTypes.TOKEN,
+            )
+        }
         fun thirdPartyIdentifier(
-                medium: String,
-                address: String,
-                password: String,
-                deviceDisplayName: String?,
-                deviceId: String?
+            medium: String,
+            address: String,
+            password: String,
+            deviceDisplayName: String?,
+            deviceId: String?
         ): PasswordLoginParams {
             return PasswordLoginParams(
-                    identifier = mapOf(
-                            IDENTIFIER_KEY_TYPE to IDENTIFIER_KEY_TYPE_THIRD_PARTY,
-                            IDENTIFIER_KEY_MEDIUM to medium,
-                            IDENTIFIER_KEY_ADDRESS to address
-                    ),
-                    password = password,
-                    type = LoginFlowTypes.PASSWORD,
-                    deviceDisplayName = deviceDisplayName,
-                    deviceId = deviceId
+                identifier = mapOf(
+                    IDENTIFIER_KEY_TYPE to IDENTIFIER_KEY_TYPE_THIRD_PARTY,
+                    IDENTIFIER_KEY_MEDIUM to medium,
+                    IDENTIFIER_KEY_ADDRESS to address
+                ),
+                password = password,
+                type = LoginFlowTypes.PASSWORD,
+                deviceDisplayName = deviceDisplayName,
+                deviceId = deviceId
             )
         }
 
         fun phoneIdentifier(
-                country: String,
-                phone: String,
-                password: String,
-                deviceDisplayName: String?,
-                deviceId: String?
+            country: String,
+            phone: String,
+            password: String,
+            deviceDisplayName: String?,
+            deviceId: String?
         ): PasswordLoginParams {
             return PasswordLoginParams(
-                    identifier = mapOf(
-                            IDENTIFIER_KEY_TYPE to IDENTIFIER_KEY_TYPE_PHONE,
-                            IDENTIFIER_KEY_COUNTRY to country,
-                            IDENTIFIER_KEY_PHONE to phone
-                    ),
-                    password = password,
-                    type = LoginFlowTypes.PASSWORD,
-                    deviceDisplayName = deviceDisplayName,
-                    deviceId = deviceId
+                identifier = mapOf(
+                    IDENTIFIER_KEY_TYPE to IDENTIFIER_KEY_TYPE_PHONE,
+                    IDENTIFIER_KEY_COUNTRY to country,
+                    IDENTIFIER_KEY_PHONE to phone
+                ),
+                password = password,
+                type = LoginFlowTypes.PASSWORD,
+                deviceDisplayName = deviceDisplayName,
+                deviceId = deviceId
             )
         }
     }
