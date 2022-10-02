@@ -5,7 +5,7 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'realm-android'
 apply plugin: "org.jetbrains.dokka"
 // WARNING: always restore this line after importing code from Element Android (1/2)
-apply plugin: "com.vanniktech.maven.publish"
+//apply plugin: "com.vanniktech.maven.publish"
 apply plugin: "maven-publish"
 
 if (project.hasProperty("coverage")) {
@@ -48,10 +48,9 @@ dokkaHtml {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = 'org.matrix.androidsdk'
+            groupId = 'org.matrix'
             artifactId = 'library'
-            version = '1.1'
-
+            version = '4.0.0'
         }
     }
 }
