@@ -6,6 +6,7 @@ apply plugin: 'realm-android'
 apply plugin: "org.jetbrains.dokka"
 // WARNING: always restore this line after importing code from Element Android (1/2)
 apply plugin: "com.vanniktech.maven.publish"
+apply plugin: "maven-publish"
 
 if (project.hasProperty("coverage")) {
     apply plugin: 'jacoco'
@@ -40,6 +41,17 @@ dokkaHtml {
             // List of files with module and package documentation
             // https://kotlinlang.org/docs/reference/kotlin-doc.html#module-and-package-documentation
             includes.from("./docs/modules.md", "./docs/packages.md")
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.matrix.androidsdk'
+            artifactId = 'library'
+            version = '1.1'
+
         }
     }
 }
