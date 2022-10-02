@@ -45,12 +45,15 @@ dokkaHtml {
     }
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId = 'org.matrix'
-            artifactId = 'library'
-            version = '4.0.0'
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.miladv33' //your git id
+                artifactId = 'milad-matrix-android-sdk2' //your-repository
+                version = '5.0.0' // As same as the Tag
+            }
         }
     }
 }
