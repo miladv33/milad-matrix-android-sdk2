@@ -154,8 +154,8 @@ class Matrix(context: Context, matrixConfiguration: MatrixConfiguration) {
         /**
          * @return a String with details about the Matrix SDK version.
          */
-        fun getSdkVersion(): String {
-            return BuildConfig.SDK_VERSION + " (" + BuildConfig.GIT_SDK_REVISION + ")"
-        }
+//        fun getSdkVersion(): String {
+//            return BuildConfig.SDK_VERSION + " (" + BuildConfig.GIT_SDK_REVISION + ")"
+//        }
     }
 }

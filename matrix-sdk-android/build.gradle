@@ -52,7 +52,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.miladv33' //your git id
                 artifactId = 'milad-matrix-android-sdk2' //your-repository
-                version = '8.0.0' // As same as the Tag
+                version = '9.0.0' // As same as the Tag
             }
         }
     }
@@ -77,11 +77,11 @@ android {
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
         // WARNING: always restore this line after importing code from Element Android (2/2)
-        buildConfigField "String", "SDK_VERSION", "\"${project.getProperties().getOrDefault("VERSION_NAME", "0.0.0")}\""
-
-        buildConfigField "String", "GIT_SDK_REVISION", "\"${gitRevision()}\""
-        buildConfigField "String", "GIT_SDK_REVISION_UNIX_DATE", "\"${gitRevisionUnixDate()}\""
-        buildConfigField "String", "GIT_SDK_REVISION_DATE", "\"${gitRevisionDate()}\""
+//        buildConfigField "String", "SDK_VERSION", "\"${project.getProperties().getOrDefault("VERSION_NAME", "0.0.0")}\""
+//
+//        buildConfigField "String", "GIT_SDK_REVISION", "\"${gitRevision()}\""
+//        buildConfigField "String", "GIT_SDK_REVISION_UNIX_DATE", "\"${gitRevisionUnixDate()}\""
+//        buildConfigField "String", "GIT_SDK_REVISION_DATE", "\"${gitRevisionDate()}\""
 
         defaultConfig {
             consumerProguardFiles 'proguard-rules.pro'
