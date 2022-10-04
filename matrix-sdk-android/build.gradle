@@ -52,7 +52,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.miladv33' //your git id
                 artifactId = 'milad-matrix-android-sdk2' //your-repository
-                version = '6.0.0' // As same as the Tag
+                version = '7.0.0' // As same as the Tag
             }
         }
     }
